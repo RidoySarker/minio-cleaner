@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: .
+    container_name: minio-cleaner-app
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    environment:
+      - PHP_TIMEZONE=Asia/Dhaka
+    restart: always
+    networks:
+      - app-network
+    command: ["sh", "-c", "cron && tail -f /var/log/cron.log"]
+
+networks:
+  app-network:
+    driver: bridge
