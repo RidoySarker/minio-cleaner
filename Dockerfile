@@ -3,6 +3,7 @@ FROM php:8.3-cli
 RUN apt-get update && apt-get install -y \
     cron \
     curl \
+    unzip\
     tzdata \
     && rm -rf /var/lib/apt/lists/*
 
@@ -18,7 +19,7 @@ RUN mkdir -p /var/www/html && touch /var/www/html/cron.log && chmod -R 777 /var/
 
 RUN chmod +x /var/www/html/index.php
 
-RUN composer install -vvv --no-interaction --optimize-autoloader
+RUN composer install --no-interaction --optimize-autoloader
 
 RUN touch /var/log/cron.log && chmod 666 /var/log/cron.log
 
